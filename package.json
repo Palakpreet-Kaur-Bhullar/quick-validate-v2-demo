@@ -1,0 +1,25 @@
+{
+  "name": "quick-validate-v2-demo",
+  "version": "1.0.0",
+  "description": "Interactive demonstration of @palakpreet/quick-validate JavaScript validation library",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "@palakpreet/quick-validate": "^2.0.0",
+    "express": "^5.1.0"
+  },
+  "keywords": [
+    "quick-validate",
+    "validation",
+    "javascript",
+    "npm",
+    "demo",
+    "forms",
+    "indian-validation"
+  ],
+  "license": "MIT"
+}

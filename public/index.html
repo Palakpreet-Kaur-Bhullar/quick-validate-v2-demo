@@ -1,0 +1,889 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Quick Validate — Interactive Demo</title>
+
+    <meta
+      name="description"
+      content="Explore Quick Validate, a lightweight JavaScript validation library with interactive examples, Indian validators, schema validation, custom rules, and more."
+    />
+
+    <link rel="stylesheet" href="style.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <div class="app">
+      <!-- SIDEBAR -->
+
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-icon">QV</div>
+
+          <div>
+            <h1>Quick Validate</h1>
+            <span>JavaScript Validation</span>
+          </div>
+        </div>
+
+        <div class="sidebar-label">OVERVIEW</div>
+
+        <nav>
+          <a href="#home" class="nav-link active">
+            <span>⌂</span>
+            Overview
+          </a>
+
+          <a href="#playground" class="nav-link">
+            <span>⌘</span>
+            Validator Playground
+          </a>
+
+          <a href="#indian" class="nav-link">
+            <span>🇮🇳</span>
+            Indian Validators
+          </a>
+
+          <a href="#password" class="nav-link">
+            <span>🔐</span>
+            Password Strength
+          </a>
+
+          <a href="#forms" class="nav-link">
+            <span>▤</span>
+            Form & Schema
+          </a>
+
+          <a href="#custom" class="nav-link">
+            <span>⚡</span>
+            Custom Rules
+          </a>
+
+          <a href="#advanced" class="nav-link">
+            <span>◈</span>
+            Advanced Validation
+          </a>
+
+          <a href="#files" class="nav-link">
+            <span>📁</span>
+            File Validation
+          </a>
+
+          <a href="#api" class="nav-link">
+            <span>⌘</span>
+            API Reference
+          </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+          <div class="sidebar-card">
+            <div class="sidebar-card-title">Open Source</div>
+
+            <p>Lightweight. Dependency-free. Built with JavaScript.</p>
+
+            <a
+              href="https://github.com/Palakpreet-Kaur-Bhullar/quick-validate-v2"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View source →
+            </a>
+          </div>
+
+          <div class="sidebar-footer">
+            <span class="status-dot"></span>
+            Demo environment active
+          </div>
+        </div>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+
+      <main class="main-content">
+        <!-- HERO -->
+
+        <section id="home" class="hero">
+          <div class="hero-top">
+            <span class="eyebrow">JAVASCRIPT VALIDATION LIBRARY</span>
+
+            <span class="version-badge">v2.0.0</span>
+          </div>
+
+          <h2>
+            Validation,
+            <span class="gradient-text">without the complexity.</span>
+          </h2>
+
+          <p class="hero-description">
+            A lightweight, dependency-free JavaScript library for validating
+            common inputs, forms, objects, and Indian-specific formats. Explore
+            every feature interactively.
+          </p>
+
+          <div class="hero-buttons">
+            <a href="#playground" class="button primary-button">
+              Try the playground →
+            </a>
+
+            <a
+              href="https://www.npmjs.com/package/@palakpreet/quick-validate"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="button secondary-button"
+            >
+              View on npm
+            </a>
+          </div>
+
+          <div class="install-box">
+            <span class="terminal-prompt">$</span>
+
+            <code>npm install @palakpreet/quick-validate</code>
+
+            <button
+              class="copy-button"
+              data-copy="npm install @palakpreet/quick-validate"
+            >
+              Copy
+            </button>
+          </div>
+        </section>
+
+        <!-- STATISTICS -->
+
+        <section class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon purple">✓</div>
+
+            <div>
+              <strong>40+</strong>
+              <span>Validation utilities</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon blue">⚡</div>
+
+            <div>
+              <strong>0</strong>
+              <span>Runtime dependencies</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon green">JS</div>
+
+            <div>
+              <strong>100%</strong>
+              <span>JavaScript</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon orange">🇮🇳</div>
+
+            <div>
+              <strong>India</strong>
+              <span>Specialized validators</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- FEATURE OVERVIEW -->
+
+        <section class="section">
+          <div class="section-heading">
+            <div>
+              <span class="eyebrow">BUILT FOR DEVELOPERS</span>
+              <h3>One library. Multiple validation needs.</h3>
+            </div>
+          </div>
+
+          <div class="feature-grid">
+            <article class="feature-card">
+              <div class="feature-icon purple">✓</div>
+
+              <h4>Individual Validators</h4>
+
+              <p>
+                Validate emails, URLs, phone numbers, usernames, dates, IP
+                addresses, and more.
+              </p>
+            </article>
+
+            <article class="feature-card">
+              <div class="feature-icon blue">▤</div>
+
+              <h4>Schema Validation</h4>
+
+              <p>
+                Validate entire forms and objects with multiple rules and
+                field-specific error reporting.
+              </p>
+            </article>
+
+            <article class="feature-card">
+              <div class="feature-icon green">⚡</div>
+
+              <h4>Custom Rules</h4>
+
+              <p>
+                Extend the library with your own reusable validation functions.
+              </p>
+            </article>
+
+            <article class="feature-card">
+              <div class="feature-icon orange">🇮🇳</div>
+
+              <h4>Indian Formats</h4>
+
+              <p>
+                Validate PAN, GSTIN, IFSC, UPI, Indian phone numbers, PIN codes,
+                and vehicle registrations.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <!-- PLAYGROUND -->
+
+        <section id="playground" class="section">
+          <div class="section-heading">
+            <div>
+              <span class="eyebrow">LIVE INTERACTION</span>
+              <h3>Validator Playground</h3>
+
+              <p>
+                Select a validator, enter a value, and instantly see whether it
+                passes.
+              </p>
+            </div>
+          </div>
+
+          <div class="demo-panel">
+            <div class="panel-header">
+              <div>
+                <h4>Test an input</h4>
+                <p>Individual validation functions</p>
+              </div>
+
+              <span class="live-badge">
+                <span class="status-dot"></span>
+                LIVE
+              </span>
+            </div>
+
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="validator-type"> Validator </label>
+
+                <select id="validator-type">
+                  <option value="email">Email</option>
+                  <option value="indianPhone">Indian Phone</option>
+                  <option value="pinCode">Indian PIN Code</option>
+                  <option value="password">Strong Password</option>
+                  <option value="url">URL</option>
+                  <option value="username">Username</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="validator-input"> Input Value </label>
+
+                <input
+                  type="text"
+                  id="validator-input"
+                  placeholder="Enter a value to validate..."
+                />
+              </div>
+            </div>
+
+            <button
+              id="run-validator"
+              class="button primary-button full-button"
+            >
+              Validate Input →
+            </button>
+
+            <div id="validator-result" class="result-box empty-result">
+              <div class="result-icon">⌁</div>
+
+              <div>
+                <strong>Awaiting validation</strong>
+
+                <p>Enter a value and click Validate Input.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- INDIAN VALIDATORS -->
+
+        <section id="indian" class="section">
+          <div class="section-heading">
+            <div>
+              <span class="eyebrow">INDIA-SPECIFIC VALIDATION</span>
+
+              <h3>Indian Format Validators</h3>
+
+              <p>
+                Validate commonly used Indian identification, banking, and
+                contact formats.
+              </p>
+            </div>
+          </div>
+
+          <div class="demo-panel">
+            <div class="indian-validator-grid">
+              <div class="indian-card">
+                <div class="indian-card-header">
+                  <span class="indian-symbol">PAN</span>
+                  <h4>PAN</h4>
+                </div>
+
+                <p>Permanent Account Number format</p>
+
+                <input id="pan-input" placeholder="ABCDE1234F" />
+
+                <button
+                  class="mini-button"
+                  data-validator="pan"
+                  data-input="pan-input"
+                >
+                  Validate
+                </button>
+
+                <div id="pan-result" class="mini-result"></div>
+              </div>
+
+              <div class="indian-card">
+                <div class="indian-card-header">
+                  <span class="indian-symbol">GST</span>
+                  <h4>GSTIN</h4>
+                </div>
+
+                <p>Goods and Services Tax Identification Number</p>
+
+                <input id="gst-input" placeholder="27ABCDE1234F1Z5" />
+
+                <button
+                  class="mini-button"
+                  data-validator="gstin"
+                  data-input="gst-input"
+                >
+                  Validate
+                </button>
+
+                <div id="gst-result" class="mini-result"></div>
+              </div>
+
+              <div class="indian-card">
+                <div class="indian-card-header">
+                  <span class="indian-symbol">IFSC</span>
+                  <h4>IFSC</h4>
+                </div>
+
+                <p>Indian Financial System Code</p>
+
+                <input id="ifsc-input" placeholder="HDFC0001234" />
+
+                <button
+                  class="mini-button"
+                  data-validator="ifsc"
+                  data-input="ifsc-input"
+                >
+                  Validate
+                </button>
+
+                <div id="ifsc-result" class="mini-result"></div>
+              </div>
+
+              <div class="indian-card">
+                <div class="indian-card-header">
+                  <span class="indian-symbol">UPI</span>
+                  <h4>UPI ID</h4>
+                </div>
+
+                <p>Unified Payments Interface identifier</p>
+
+                <input id="upi-input" placeholder="name@upi" />
+
+                <button
+                  class="mini-button"
+                  data-validator="upi"
+                  data-input="upi-input"
+                >
+                  Validate
+                </button>
+
+                <div id="upi-result" class="mini-result"></div>
+              </div>
+
+              <div class="indian-card">
+                <div class="indian-card-header">
+                  <span class="indian-symbol">PIN</span>
+                  <h4>PIN Code</h4>
+                </div>
+
+                <p>Indian postal PIN code</p>
+
+                <input id="pin-input" placeholder="411001" />
+
+                <button
+                  class="mini-button"
+                  data-validator="pinCode"
+                  data-input="pin-input"
+                >
+                  Validate
+                </button>
+
+                <div id="pin-result" class="mini-result"></div>
+              </div>
+
+              <div class="indian-card">
+                <div class="indian-card-header">
+                  <span class="indian-symbol">TEL</span>
+                  <h4>Mobile</h4>
+                </div>
+
+                <p>Indian mobile number</p>
+
+                <input id="phone-input" placeholder="9876543210" />
+
+                <button
+                  class="mini-button"
+                  data-validator="indianPhone"
+                  data-input="phone-input"
+                >
+                  Validate
+                </button>
+
+                <div id="phone-result" class="mini-result"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- PASSWORD STRENGTH -->
+
+        <section id="password" class="section">
+          <div class="section-heading">
+            <div>
+              <span class="eyebrow">SECURITY & INPUT QUALITY</span>
+              <h3>Password Strength Checker</h3>
+
+              <p>Test password validation and visualize password strength.</p>
+            </div>
+          </div>
+
+          <div class="demo-panel">
+            <div class="form-group">
+              <label for="password-input"> Enter Password </label>
+
+              <div class="password-input-wrapper">
+                <input
+                  type="password"
+                  id="password-input"
+                  placeholder="Enter a password..."
+                />
+
+                <button id="toggle-password" class="icon-button">Show</button>
+              </div>
+            </div>
+
+            <div class="strength-container">
+              <div class="strength-header">
+                <span>Password Strength</span>
+                <strong id="strength-label">Not evaluated</strong>
+              </div>
+
+              <div class="strength-track">
+                <div id="strength-bar" class="strength-bar"></div>
+              </div>
+            </div>
+
+            <div class="password-requirements">
+              <div class="requirement" id="req-length">
+                <span>○</span>
+                At least 8 characters
+              </div>
+
+              <div class="requirement" id="req-upper">
+                <span>○</span>
+                Uppercase letter
+              </div>
+
+              <div class="requirement" id="req-lower">
+                <span>○</span>
+                Lowercase letter
+              </div>
+
+              <div class="requirement" id="req-number">
+                <span>○</span>
+                Number
+              </div>
+
+              <div class="requirement" id="req-symbol">
+                <span>○</span>
+                Special character
+              </div>
+            </div>
+
+            <div id="password-result" class="result-box empty-result">
+              <div class="result-icon">🔐</div>
+
+              <div>
+                <strong>Enter a password</strong>
+
+                <p>The strength indicator will update as you type.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- FORM SCHEMA -->
+
+        <section id="forms" class="section">
+          <div class="section-heading">
+            <div>
+              <span class="eyebrow">MULTI-FIELD VALIDATION</span>
+              <h3>Registration Form</h3>
+
+              <p>
+                Demonstrates schema validation, multiple rules, field-level
+                errors, and custom messages.
+              </p>
+            </div>
+          </div>
+
+          <div class="demo-panel">
+            <form id="registration-form">
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="form-name"> Full Name </label>
+
+                  <input id="form-name" name="name" placeholder="Your name" />
+
+                  <div class="field-error" id="error-name"></div>
+                </div>
+
+                <div class="form-group">
+                  <label for="form-email"> Email Address </label>
+
+                  <input
+                    id="form-email"
+                    name="email"
+                    type="email"
+                    placeholder="you@example.com"
+                  />
+
+                  <div class="field-error" id="error-email"></div>
+                </div>
+
+                <div class="form-group">
+                  <label for="form-phone"> Indian Mobile Number </label>
+
+                  <input
+                    id="form-phone"
+                    name="phone"
+                    placeholder="9876543210"
+                  />
+
+                  <div class="field-error" id="error-phone"></div>
+                </div>
+
+                <div class="form-group">
+                  <label for="form-pin"> PIN Code </label>
+
+                  <input id="form-pin" name="pin" placeholder="411001" />
+
+                  <div class="field-error" id="error-pin"></div>
+                </div>
+
+                <div class="form-group">
+                  <label for="form-password"> Password </label>
+
+                  <input
+                    id="form-password"
+                    name="password"
+                    type="password"
+                    placeholder="Create a password"
+                  />
+
+                  <div class="field-error" id="error-password"></div>
+                </div>
+
+                <div class="form-group">
+                  <label for="form-pan"> PAN (Optional) </label>
+
+                  <input id="form-pan" name="pan" placeholder="ABCDE1234F" />
+
+                  <div class="field-error" id="error-pan"></div>
+                </div>
+              </div>
+
+              <button type="submit" class="button primary-button full-button">
+                Validate Registration →
+              </button>
+            </form>
+
+            <div id="form-result" class="result-box empty-result">
+              <div class="result-icon">▤</div>
+
+              <div>
+                <strong>Ready to validate</strong>
+
+                <p>Fill in the form and submit it.</p>
+              </div>
+            </div>
+
+            <div id="schema-output" class="code-output hidden"></div>
+          </div>
+        </section>
+
+        <!-- CUSTOM VALIDATORS -->
+
+        <section id="custom" class="section">
+          <div class="section-heading">
+            <div>
+              <span class="eyebrow">EXTENSIBILITY</span>
+              <h3>Custom Validation Rules</h3>
+
+              <p>Create your own reusable rules using functions.</p>
+            </div>
+          </div>
+
+          <div class="demo-panel">
+            <div class="custom-rule-card">
+              <div class="custom-rule-description">
+                <h4>Example: Even Number Validator</h4>
+
+                <p>
+                  We create a custom rule called <code>even</code>
+                  that checks whether a value is divisible by 2.
+                </p>
+              </div>
+
+              <div class="code-block">
+                <pre><code>addValidator(
+  "even",
+  value => Number(value) % 2 === 0
+);
+
+validate(6, ["even"]);</code></pre>
+              </div>
+
+              <div class="form-group">
+                <label for="custom-input"> Enter a number </label>
+
+                <input
+                  id="custom-input"
+                  type="number"
+                  placeholder="Try 6 or 7"
+                />
+              </div>
+
+              <button id="test-custom" class="button primary-button">
+                Test Custom Rule →
+              </button>
+
+              <div id="custom-result" class="result-box empty-result">
+                <div class="result-icon">⚡</div>
+
+                <div>
+                  <strong>Custom rule ready</strong>
+
+                  <p>Enter a number to test.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ADVANCED -->
+
+        <section id="advanced" class="section">
+          <div class="section-heading">
+            <div>
+              <span class="eyebrow">ADVANCED FEATURES</span>
+              <h3>More Validation Tools</h3>
+
+              <p>Explore array, nested object, and object validation.</p>
+            </div>
+          </div>
+
+          <!-- ARRAY VALIDATION -->
+
+          <div class="advanced-card">
+            <h4>Array Validation</h4>
+
+            <p>Validate arrays, their elements, and collection constraints.</p>
+
+            <label for="array-input"> Comma-separated values </label>
+
+            <input id="array-input" placeholder="red, blue, green" />
+
+            <button id="validate-array" class="mini-button">
+              Validate Array
+            </button>
+
+            <div id="array-result" class="mini-result"></div>
+          </div>
+
+          <!-- NESTED VALIDATION -->
+
+          <div class="advanced-card">
+            <h4>Nested Object Validation</h4>
+
+            <p>Validate data inside nested object structures.</p>
+
+            <button id="validate-nested" class="mini-button">
+              Run Nested Validation
+            </button>
+
+            <div id="nested-result" class="mini-result"></div>
+          </div>
+
+          <!-- OBJECT VALIDATION -->
+
+          <div class="advanced-card">
+            <h4>Object Validation</h4>
+
+            <p>Validate an object using validator functions.</p>
+
+            <button id="validate-object" class="mini-button">
+              Run Object Validation
+            </button>
+
+            <div id="object-result" class="mini-result"></div>
+          </div>
+        </section>
+
+        <!-- FILE VALIDATION -->
+
+        <section id="files" class="section">
+          <div class="section-heading">
+            <div>
+              <span class="eyebrow">FILE METADATA</span>
+              <h3>File Validation</h3>
+
+              <p>Check file size, MIME type, and file extensions.</p>
+            </div>
+          </div>
+
+          <div class="demo-panel">
+            <div class="file-upload-area">
+              <input type="file" id="file-input" />
+
+              <label for="file-input" class="file-label">
+                <div class="file-icon">📁</div>
+
+                <strong>Select a file</strong>
+
+                <span> Try images, PDFs, or other files </span>
+              </label>
+            </div>
+
+            <div id="file-result" class="result-box empty-result">
+              <div class="result-icon">📁</div>
+
+              <div>
+                <strong>No file selected</strong>
+
+                <p>Select a file to inspect its metadata.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- API REFERENCE -->
+
+        <section id="api" class="section">
+          <div class="section-heading">
+            <div>
+              <span class="eyebrow">DOCUMENTATION</span>
+              <h3>API Reference</h3>
+
+              <p>A quick overview of the package's main capabilities.</p>
+            </div>
+          </div>
+
+          <div class="api-grid">
+            <article class="api-card">
+              <h4>Individual Validators</h4>
+
+              <code>isEmail()</code>
+              <code>isIndianPhone()</code>
+              <code>isStrongPassword()</code>
+              <code>isURL()</code>
+              <code>isPAN()</code>
+              <code>isGSTIN()</code>
+            </article>
+
+            <article class="api-card">
+              <h4>Rule Validation</h4>
+
+              <code>validate()</code>
+              <code>validateField()</code>
+              <code>validateSchema()</code>
+            </article>
+
+            <article class="api-card">
+              <h4>Advanced Validation</h4>
+
+              <code>validateArray()</code>
+              <code>validateNested()</code>
+              <code>validateObject()</code>
+            </article>
+
+            <article class="api-card">
+              <h4>Custom & Utility</h4>
+
+              <code>addValidator()</code>
+              <code>getCustomValidator()</code>
+              <code>isFileValid()</code>
+            </article>
+          </div>
+        </section>
+
+        <!-- FOOTER -->
+
+        <footer class="footer">
+          <div>
+            <strong>Quick Validate</strong>
+
+            <p>Built with JavaScript · Node.js · Express</p>
+          </div>
+
+          <div class="footer-links">
+            <a
+              href="https://www.npmjs.com/package/@palakpreet/quick-validate"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              npm
+            </a>
+
+            <a
+              href="https://github.com/Palakpreet-Kaur-Bhullar/quick-validate-v2"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              GitHub
+            </a>
+          </div>
+        </footer>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
