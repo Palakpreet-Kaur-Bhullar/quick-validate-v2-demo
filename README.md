@@ -45,10 +45,9 @@ Interactive testing of common validators:
 - URL
 - Username
 
-<img width="1166" height="703" alt="image" src="https://github.com/user-attachments/assets/011ab206-cf62-4d22-9e03-eaa774d60cda" />
-
 <img width="1146" height="747" alt="image" src="https://github.com/user-attachments/assets/1d000a1a-6bc3-4ef1-8e9d-7ceb97f0ec64" />
 
+<img width="1166" height="703" alt="image" src="https://github.com/user-attachments/assets/011ab206-cf62-4d22-9e03-eaa774d60cda" />
 
 ### 2. Indian-Specific Validation
 
@@ -71,6 +70,9 @@ with visual feedback for:
 - Lowercase letters
 - Numbers
 - Special characters
+
+<img width="1061" height="766" alt="image" src="https://github.com/user-attachments/assets/102015b3-cdfe-4518-80ba-e0bbefa0d435" />
+
 
 ### 4. Schema-Based Form Validation
 
