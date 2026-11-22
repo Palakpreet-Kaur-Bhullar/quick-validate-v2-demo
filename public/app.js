@@ -1,320 +1,358 @@
-import express from "express";
-
-import {
-  validate,
-  validateSchema,
-  validateArray,
-  validateNested,
-  validateObject,
-  isFileValid,
-  isEmail,
-  isIndianPhone,
-  isIndianPinCode,
-  isStrongPassword,
-  isPAN,
-  isGSTIN,
-  isIFSC,
-  isUPI,
-  isURL,
-  isUsername,
-  addValidator,
-} from "@palakpreet/quick-validate";
-
-const app = express();
-
-const PORT = process.env.PORT || 3000;
-
-app.use(express.json());
-
-app.use(express.static("public"));
-
 /* =========================================================
-   HEALTH CHECK
-========================================================= */
+   QUICK VALIDATE DEMO
+   Frontend JavaScript
+   ========================================================= */
 
-app.get("/api/health", (req, res) => {
-  res.json({
-    success: true,
-    message: "Quick Validate Demo API is running",
-    package: "@palakpreet/quick-validate",
-    version: "2.0.0",
+/* ---------------- HELPER FUNCTIONS ---------------- */
+
+async function apiRequest(endpoint, data) {
+  const response = await fetch(endpoint, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
   });
-});
 
-/* =========================================================
-   INDIVIDUAL VALIDATORS
-========================================================= */
+  const result = await response.json();
 
-app.post("/api/validate", (req, res) => {
-  const { type, value } = req.body;
-
-  const validators = {
-    email: isEmail,
-    indianPhone: isIndianPhone,
-    pinCode: isIndianPinCode,
-    password: isStrongPassword,
-    pan: isPAN,
-    gstin: isGSTIN,
-    ifsc: isIFSC,
-    upi: isUPI,
-    url: isURL,
-    username: isUsername,
-  };
-
-  const validator = validators[type];
-
-  if (!validator) {
-    return res.status(400).json({
-      success: false,
-      message: "Unknown validation type.",
-    });
+  if (!response.ok) {
+    throw new Error(result.error || "Something went wrong");
   }
 
-  const valid = validator(value);
+  return result;
+}
 
-  res.json({
-    success: true,
-    type,
-    value,
-    valid,
-    message: valid
-      ? "The value passed validation."
-      : "The value failed validation.",
-  });
-});
+function showResult(elementId, title, data, status = "neutral") {
+  const box = document.getElementById(elementId);
 
-/* =========================================================
-   SCHEMA VALIDATION
-========================================================= */
+  box.className = `result-box ${status}`;
+  box.classList.remove("hidden");
 
-app.post("/api/register", (req, res) => {
-  const schema = {
-    name: [
-      "required",
-      { name: "minLength", value: 2 },
-      { name: "maxLength", value: 50 },
-    ],
+  box.replaceChildren();
 
-    email: ["required", "email"],
+  const titleElement = document.createElement("div");
+  titleElement.className = `result-title ${status}`;
 
-    phone: ["required", "indianPhone"],
+  titleElement.textContent = title;
 
-    pin: ["required", "indianPinCode"],
+  const contentElement = document.createElement("div");
+  contentElement.className = "result-content";
 
-    password: ["required", "password"],
+  const pre = document.createElement("pre");
+  pre.textContent =
+    typeof data === "string" ? data : JSON.stringify(data, null, 2);
 
-    pan: ["pan"],
-  };
+  contentElement.appendChild(pre);
 
-  const result = validateSchema(req.body, schema);
+  box.appendChild(titleElement);
+  box.appendChild(contentElement);
+}
 
-  res.status(result.valid ? 200 : 400).json({
-    success: result.valid,
-    message: result.valid
-      ? "All fields passed validation!"
-      : "Please correct the validation errors.",
-    result,
-  });
-});
+function showError(elementId, error) {
+  showResult(
+    elementId,
+    "❌ Error",
+    error.message || "Something went wrong.",
+    "error",
+  );
+}
 
-/* =========================================================
-   CUSTOM VALIDATOR
-========================================================= */
+function getStatus(value) {
+  if (value === true) return "success";
+  if (value === false) return "error";
 
-addValidator("even", (value) => Number(value) % 2 === 0);
+  if (value && typeof value === "object") {
+    if ("valid" in value) {
+      return value.valid ? "success" : "error";
+    }
 
-app.post("/api/custom", (req, res) => {
-  const { value } = req.body;
+    if ("isValid" in value) {
+      return value.isValid ? "success" : "error";
+    }
 
-  const result = validate(value, ["even"]);
+    if ("success" in value) {
+      return value.success ? "success" : "error";
+    }
+  }
 
-  const valid = result.valid;
+  return "neutral";
+}
 
-  res.json({
-    success: true,
-    valid,
-    message: valid
-      ? `${value} is an even number.`
-      : `${value} is not an even number.`,
-    result,
-  });
-});
+/* ---------------- HEALTH CHECK ---------------- */
 
-/* =========================================================
-   ARRAY VALIDATION
-========================================================= */
+async function checkServer() {
+  try {
+    const response = await fetch("/api/health");
+    const data = await response.json();
 
-app.post("/api/array", (req, res) => {
-  const { values } = req.body;
+    console.log("Server status:", data);
+  } catch (error) {
+    console.error("Server health check failed:", error);
+  }
+}
 
-  if (!Array.isArray(values)) {
-    return res.status(400).json({
-      success: false,
-      valid: false,
-      message: "The supplied value must be an array.",
-    });
+checkServer();
+
+/* ---------------- INDIVIDUAL VALIDATOR ---------------- */
+
+document.getElementById("validateBtn").addEventListener("click", async () => {
+  const type = document.getElementById("validatorType").value;
+
+  const value = document.getElementById("validatorValue").value.trim();
+
+  if (!value) {
+    showResult(
+      "validatorResult",
+      "⚠️ Input Required",
+      "Please enter a value to validate.",
+      "warning",
+    );
+    return;
   }
 
   try {
-    const result = validateArray(values, ["required"], {
-      minItems: 1,
-      maxItems: 10,
+    const data = await apiRequest("/api/validate", {
+      type,
+      value,
     });
 
-    res.json({
-      success: true,
-      valid: result.valid,
-      message: result.valid
-        ? `Array validation passed. ${values.length} values were received.`
-        : "Array validation failed.",
+    const status = getStatus(data.valid);
+
+    showResult(
+      "validatorResult",
+      status === "success" ? "✅ Valid Input" : "❌ Invalid Input",
+      data,
+      status,
+    );
+  } catch (error) {
+    showError("validatorResult", error);
+  }
+});
+
+/* ---------------- PASSWORD STRENGTH ---------------- */
+
+document.getElementById("passwordBtn").addEventListener("click", async () => {
+  const value = document.getElementById("passwordInput").value;
+
+  if (!value) {
+    showResult(
+      "passwordResult",
+      "⚠️ Input Required",
+      "Please enter a password.",
+      "warning",
+    );
+    return;
+  }
+
+  try {
+    const data = await apiRequest("/api/password", {
+      password: value,
+    });
+
+    showResult("passwordResult", "🔐 Password Analysis", data, "neutral");
+  } catch (error) {
+    showError("passwordResult", error);
+  }
+});
+
+/* ---------------- REGISTRATION / SCHEMA ---------------- */
+
+document
+  .getElementById("registrationForm")
+  .addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const data = {
+      name: document.getElementById("regName").value.trim(),
+      email: document.getElementById("regEmail").value.trim(),
+      phone: document.getElementById("regPhone").value.trim(),
+      password: document.getElementById("regPassword").value,
+      pinCode: document.getElementById("regPin").value.trim(),
+    };
+
+    try {
+      const result = await apiRequest("/api/register", data);
+
+      showResult(
+        "registrationResult",
+        "📋 Schema Validation Result",
+        result,
+        "neutral",
+      );
+    } catch (error) {
+      showError("registrationResult", error);
+    }
+  });
+
+/* ---------------- CUSTOM VALIDATION ---------------- */
+
+document.getElementById("customBtn").addEventListener("click", async () => {
+  const value = document.getElementById("customValue").value;
+
+  if (value === "") {
+    showResult(
+      "customResult",
+      "⚠️ Input Required",
+      "Please enter a number.",
+      "warning",
+    );
+    return;
+  }
+
+  try {
+    const data = await apiRequest("/api/custom", {
+      value,
+    });
+
+    const status = data.valid ? "success" : "error";
+
+    showResult(
+      "customResult",
+      data.valid ? "✅ Custom Rule Passed" : "❌ Custom Rule Failed",
+      data,
+      status,
+    );
+  } catch (error) {
+    showError("customResult", error);
+  }
+});
+
+/* ---------------- ARRAY VALIDATION ---------------- */
+
+document.getElementById("arrayBtn").addEventListener("click", async () => {
+  const input = document.getElementById("arrayValues").value;
+
+  const values = input
+    .split("\n")
+    .map((value) => value.trim())
+    .filter(Boolean);
+
+  if (values.length === 0) {
+    showResult(
+      "arrayResult",
+      "⚠️ Input Required",
+      "Please enter at least one email address.",
+      "warning",
+    );
+    return;
+  }
+
+  try {
+    const data = await apiRequest("/api/array", {
       values,
-      result,
     });
+
+    showResult("arrayResult", "📚 Array Validation Result", data, "neutral");
   } catch (error) {
-    res.json({
-      success: false,
-      valid: false,
-      message: error.message,
-    });
+    showError("arrayResult", error);
   }
 });
 
-/* =========================================================
-   NESTED OBJECT VALIDATION
-========================================================= */
+/* ---------------- OBJECT VALIDATION ---------------- */
 
-app.post("/api/nested", (req, res) => {
+document.getElementById("objectBtn").addEventListener("click", async () => {
   const data = {
-    user: {
-      name: "Palak",
-      email: "palak@example.com",
-    },
-
-    address: {
-      city: "Pune",
-      pin: "411001",
-    },
-  };
-
-  const schema = {
-    user: {
-      name: ["required"],
-      email: ["required", "email"],
-    },
-
-    address: {
-      city: ["required"],
-      pin: ["required", "indianPinCode"],
-    },
+    name: document.getElementById("objectName").value.trim(),
+    email: document.getElementById("objectEmail").value.trim(),
+    phone: document.getElementById("objectPhone").value.trim(),
   };
 
   try {
-    const result = validateNested(data, schema);
+    const result = await apiRequest("/api/object", {
+      data,
+    });
 
-    res.json({
-      success: true,
-      valid: result.valid,
-      message: result.valid
-        ? "Nested object validation passed."
-        : "Nested object validation found errors.",
-      data,
+    showResult(
+      "objectResult",
+      "🧩 Object Validation Result",
       result,
-    });
+      "neutral",
+    );
   } catch (error) {
-    res.json({
-      success: false,
-      valid: false,
-      message: error.message,
-      data,
-    });
+    showError("objectResult", error);
   }
 });
 
-/* =========================================================
-   OBJECT VALIDATION
-========================================================= */
+/* ---------------- NESTED OBJECT VALIDATION ---------------- */
 
-app.post("/api/object", (req, res) => {
-  const data = {
-    name: "Palak",
-    email: "palak@example.com",
-    age: 21,
-  };
+document.getElementById("nestedBtn").addEventListener("click", async () => {
+  const input = document.getElementById("nestedInput").value;
 
-  const validators = {
-    name: (value) => typeof value === "string" && value.length >= 2,
-
-    email: isEmail,
-
-    age: (value) => Number(value) >= 18,
-  };
+  let data;
 
   try {
-    const result = validateObject(data, validators);
-
-    res.json({
-      success: true,
-      valid: result.valid,
-      message: result.valid
-        ? "Object validation passed."
-        : "Object validation found errors.",
-      data,
-      result,
-    });
-  } catch (error) {
-    res.json({
-      success: false,
-      valid: false,
-      message: error.message,
-      data,
-    });
+    data = JSON.parse(input);
+  } catch {
+    showResult(
+      "nestedResult",
+      "❌ Invalid JSON",
+      "Please enter valid JSON data.",
+      "error",
+    );
+    return;
   }
-});
-
-/* =========================================================
-   FILE METADATA VALIDATION
-========================================================= */
-
-app.post("/api/file", (req, res) => {
-  const file = req.body;
 
   try {
-    const result = isFileValid(file, {
-      maxSize: 5 * 1024 * 1024,
-
-      types: ["image/jpeg", "image/png", "application/pdf"],
-
-      extensions: [".jpg", ".jpeg", ".png", ".pdf"],
+    const result = await apiRequest("/api/nested", {
+      data,
     });
 
-    res.json({
-      success: true,
-      valid: result.valid ?? result,
-      message:
-        (result.valid ?? result)
-          ? "File metadata passed validation."
-          : "File metadata failed validation.",
+    showResult(
+      "nestedResult",
+      "🌳 Nested Validation Result",
       result,
-    });
+      "neutral",
+    );
   } catch (error) {
-    res.json({
-      success: false,
-      valid: false,
-      message: error.message,
-    });
+    showError("nestedResult", error);
   }
 });
 
-/* =========================================================
-   START SERVER
-========================================================= */
+/* ---------------- FILE VALIDATION ---------------- */
 
-app.listen(PORT, () => {
-  console.log("");
-  console.log("======================================");
-  console.log("  QUICK VALIDATE INTERACTIVE DEMO");
-  console.log("======================================");
-  console.log("");
-  console.log(`  Local: http://localhost:${PORT}`);
-  console.log("");
+document.getElementById("fileBtn").addEventListener("click", async () => {
+  const file = {
+    name: document.getElementById("fileName").value.trim(),
+    type: document.getElementById("fileType").value.trim(),
+    size: Number(document.getElementById("fileSize").value),
+  };
+
+  if (!file.name || !file.type || !file.size) {
+    showResult(
+      "fileResult",
+      "⚠️ Input Required",
+      "Please fill in all file metadata fields.",
+      "warning",
+    );
+    return;
+  }
+
+  try {
+    const result = await apiRequest("/api/file", {
+      file,
+    });
+
+    showResult("fileResult", "📁 File Validation Result", result, "neutral");
+  } catch (error) {
+    showError("fileResult", error);
+  }
 });
+
+/* ---------------- ENTER KEY SUPPORT ---------------- */
+
+document
+  .getElementById("validatorValue")
+  .addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      document.getElementById("validateBtn").click();
+    }
+  });
+
+document.getElementById("customValue").addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+    document.getElementById("customBtn").click();
+  }
+});
+
+console.log("Quick Validate frontend loaded successfully.");
