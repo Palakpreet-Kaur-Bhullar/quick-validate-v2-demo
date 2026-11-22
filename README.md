@@ -10,7 +10,7 @@ interactive validation tools, and a real Express backend.
 
 ## Live Demo
 
-[Open the live demo](YOUR_DEPLOYED_URL_HERE)
+[Open the live demo](https://quick-validate-v2-demo.onrender.com/)
 
 ---
 
