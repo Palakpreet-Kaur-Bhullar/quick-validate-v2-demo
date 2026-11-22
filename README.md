@@ -1,4 +1,4 @@
-<img width="1166" height="703" alt="image" src="https://github.com/user-attachments/assets/6ac33e4c-de0e-4a0a-8ba7-98a237206cff" /># Quick Validate — Interactive Demo
+# Quick Validate Applying and Using the package
 
 An interactive web application demonstrating the capabilities of
 [@palakpreet/quick-validate](https://www.npmjs.com/package/@palakpreet/quick-validate).
